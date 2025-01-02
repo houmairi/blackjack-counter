@@ -26,7 +26,6 @@ const BlackjackSimulation = () => {
         setGameData({ stats, data });
       } catch (error) {
         console.error('Simulation error:', error);
-        // Optionally add a state for error handling and display it to the user
       } finally {
         setIsSimulating(false);
       }
@@ -39,15 +38,6 @@ const BlackjackSimulation = () => {
         onStart={runSimulation}
         isSimulating={isSimulating}
       />
-      <div className="flex justify-center mb-6">
-        <button 
-          onClick={runSimulation}
-          disabled={isSimulating}
-          className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white px-6 py-2 rounded-lg shadow transition-colors"
-        >
-          {isSimulating ? 'Simulating...' : 'Run New Simulation'}
-        </button>
-      </div>
 
       {isSimulating ? (
         <div className="text-center py-8">Running simulation...</div>
@@ -83,12 +73,27 @@ const BlackjackSimulation = () => {
           <div className="bg-white rounded-lg shadow p-6 h-96">
             <h3 className="text-lg font-bold mb-4">Bankroll Over Time</h3>
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={gameData.data}>
+              <LineChart
+                data={gameData.data}
+                margin={{ top: 20, right: 60, bottom: 40, left: 60 }}
+              >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="hand" label={{ value: 'Hand Number', position: 'bottom' }} />
-                <YAxis label={{ value: 'Bankroll (€)', angle: -90, position: 'left' }} />
+                <XAxis 
+                  dataKey="hand" 
+                  label={{ value: 'Hand Number', position: 'bottom', offset: 20 }}
+                  tick={{ fontSize: 12 }}
+                />
+                <YAxis 
+                  label={{ 
+                    value: 'Bankroll (€)', 
+                    angle: -90, 
+                    position: 'insideLeft',
+                    offset: -40 
+                  }}
+                  tick={{ fontSize: 12 }}
+                />
                 <Tooltip />
-                <Legend />
+                <Legend wrapperStyle={{ paddingTop: '20px' }} align="left" />
                 <Line type="monotone" dataKey="bankroll" stroke="#2563eb" name="Bankroll" />
               </LineChart>
             </ResponsiveContainer>
@@ -97,13 +102,39 @@ const BlackjackSimulation = () => {
           <div className="bg-white rounded-lg shadow p-6 h-96">
             <h3 className="text-lg font-bold mb-4">True Count and Bet Size</h3>
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={gameData.data}>
+              <LineChart
+                data={gameData.data}
+                margin={{ top: 20, right: 60, bottom: 40, left: 60 }}
+              >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="hand" label={{ value: 'Hand Number', position: 'bottom' }} />
-                <YAxis yAxisId="left" label={{ value: 'True Count', angle: -90, position: 'left' }} />
-                <YAxis yAxisId="right" orientation="right" label={{ value: 'Bet Size (€)', angle: 90, position: 'right' }} />
+                <XAxis 
+                  dataKey="hand" 
+                  label={{ value: 'Hand Number', position: 'bottom', offset: 20 }}
+                  tick={{ fontSize: 12 }}
+                />
+                <YAxis 
+                  yAxisId="left" 
+                  label={{ 
+                    value: 'True Count', 
+                    angle: -90, 
+                    position: 'insideLeft',
+                    offset: -40 
+                  }}
+                  tick={{ fontSize: 12 }}
+                />
+                <YAxis 
+                  yAxisId="right" 
+                  orientation="right" 
+                  label={{ 
+                    value: 'Bet Size (€)', 
+                    angle: 90, 
+                    position: 'insideRight',
+                    offset: -40 
+                  }}
+                  tick={{ fontSize: 12 }}
+                />
                 <Tooltip content={<TrueCountTooltip />} />
-                <Legend />
+                <Legend wrapperStyle={{ paddingTop: '20px' }} align="left" />
                 <Line yAxisId="left" type="monotone" dataKey="trueCount" stroke="#10b981" name="True Count" />
                 <Line yAxisId="right" type="monotone" dataKey="bet" stroke="#f59e0b" name="Bet Size" />
               </LineChart>
