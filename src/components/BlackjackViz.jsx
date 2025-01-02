@@ -35,7 +35,10 @@ const BlackjackSimulation = () => {
 
   return (
     <div className="p-4 space-y-6">
-      <SimulationControls 
+      <div className="text-sm text-gray-500 text-right">
+        Made by houmairi - <a href="https://github.com/houmairi/blackjack-counter" className="text-blue-500 hover:text-blue-700 underline">check out this project on GitHub</a>
+      </div>
+      <SimulationControls
         onStart={runSimulation}
         isSimulating={isSimulating}
       />
