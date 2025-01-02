@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Game } from './Game';
 import SimulationControls from './simulation-controls';
+import TrueCountTooltip from './TrueCountTooltip';
 
 const BlackjackSimulation = () => {
   const [gameData, setGameData] = useState(null);
@@ -101,7 +102,7 @@ const BlackjackSimulation = () => {
                 <XAxis dataKey="hand" label={{ value: 'Hand Number', position: 'bottom' }} />
                 <YAxis yAxisId="left" label={{ value: 'True Count', angle: -90, position: 'left' }} />
                 <YAxis yAxisId="right" orientation="right" label={{ value: 'Bet Size (€)', angle: 90, position: 'right' }} />
-                <Tooltip />
+                <Tooltip content={<TrueCountTooltip />} />
                 <Legend />
                 <Line yAxisId="left" type="monotone" dataKey="trueCount" stroke="#10b981" name="True Count" />
                 <Line yAxisId="right" type="monotone" dataKey="bet" stroke="#f59e0b" name="Bet Size" />
