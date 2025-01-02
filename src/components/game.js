@@ -161,24 +161,26 @@ class Card {
   
     getStatistics() {
       const stats = {
-        totalHands: this.history.length,
-        winningHands: this.history.filter(h => h.win).length,
-        totalProfit: this.history.reduce((sum, h) => sum + h.amount, 0),
-        avgTrueCount: this.history.reduce((sum, h) => sum + parseFloat(h.trueCount), 0) / this.history.length,
-        maxBet: Math.max(...this.history.map(h => h.bet)),
-        winRateByCount: {}
+          totalHands: this.history.length,
+          winningHands: this.history.filter(h => h.win).length,
+          totalProfit: this.history.reduce((sum, h) => sum + h.amount, 0),
+          avgTrueCount: this.history.reduce((sum, h) => sum + parseFloat(h.trueCount), 0) / this.history.length,
+          maxBet: Math.max(...this.history.map(h => h.bet)),
+          winRateByCount: {},
+          handsByCount: {}
       };
       
       const countRanges = this.history.reduce((acc, hand) => {
-        const countRange = Math.floor(parseFloat(hand.trueCount));
-        if (!acc[countRange]) acc[countRange] = { wins: 0, total: 0 };
-        acc[countRange].total++;
-        if (hand.win) acc[countRange].wins++;
-        return acc;
+          const countRange = Math.floor(parseFloat(hand.trueCount));
+          if (!acc[countRange]) acc[countRange] = { wins: 0, total: 0 };
+          acc[countRange].total++;
+          if (hand.win) acc[countRange].wins++;
+          return acc;
       }, {});
       
       for (const [range, data] of Object.entries(countRanges)) {
-        stats.winRateByCount[range] = (data.wins / data.total * 100).toFixed(1);
+          stats.winRateByCount[range] = (data.wins / data.total * 100).toFixed(1);
+          stats.handsByCount[range] = data.total;
       }
       
       return stats;

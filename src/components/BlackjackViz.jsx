@@ -3,6 +3,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { Game } from './Game';
 import SimulationControls from './simulation-controls';
 import TrueCountTooltip from './TrueCountTooltip';
+import WinRatesTable from './WinRatesTable';
 
 const BlackjackSimulation = () => {
   const [gameData, setGameData] = useState(null);
@@ -60,14 +61,10 @@ const BlackjackSimulation = () => {
 
           <div className="bg-white rounded-lg shadow p-6">
             <h3 className="text-lg font-bold mb-4">Win Rates by True Count</h3>
-            <div className="grid grid-cols-2 gap-2">
-              {Object.entries(gameData.stats.winRateByCount).map(([count, rate]) => (
-                <div key={count} className="flex justify-between">
-                  <span>Count {count}:</span>
-                  <span>{rate}%</span>
-                </div>
-              ))}
-            </div>
+            <WinRatesTable 
+              winRateByCount={gameData.stats.winRateByCount}
+              handsByCount={gameData.stats.handsByCount}  // You'll need to add this to your Game class
+            />
           </div>
 
           <div className="bg-white rounded-lg shadow p-6 h-96">
