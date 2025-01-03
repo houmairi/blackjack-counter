@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import EnhancedTooltip from './EnhancedTooltip';
+import { tooltipContent } from './tooltip-contents';
 
 const Tooltip = ({ text }) => (
   <div className="group relative inline-block ml-2">
@@ -38,13 +40,16 @@ const SimulationControls = ({ onStart, isSimulating }) => {
 
   return (
     <div className="bg-white rounded-lg shadow p-6 w-full mb-6">
-      <h2 className="text-xl font-bold mb-4">Simulation Settings</h2>
+      <h2 className="text-xl font-bold mb-4">
+        Simulation Settings
+        <EnhancedTooltip {...tooltipContent.cardCounting}>ⓘ</EnhancedTooltip>
+      </h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div className="space-y-2">
           <label className="block text-sm font-medium">
             Number of Decks: {settings.numDecks}
-            <Tooltip text={tooltips.numDecks} />
+            <EnhancedTooltip {...tooltipContent.cardCounting}>ⓘ</EnhancedTooltip>
           </label>
           <input
             type="range"
@@ -76,7 +81,7 @@ const SimulationControls = ({ onStart, isSimulating }) => {
         <div className="space-y-2">
           <label className="block text-sm font-medium">
             Starting Bankroll (€)
-            <Tooltip text={tooltips.bankroll} />
+            <EnhancedTooltip {...tooltipContent.bankrollManagement}>ⓘ</EnhancedTooltip>
           </label>
           <input
             type="number"
@@ -91,7 +96,7 @@ const SimulationControls = ({ onStart, isSimulating }) => {
         <div className="space-y-2">
           <label className="block text-sm font-medium">
             Base Betting Unit (€)
-            <Tooltip text={tooltips.baseUnit} />
+            <EnhancedTooltip {...tooltipContent.bettingStrategy}>ⓘ</EnhancedTooltip>
           </label>
           <input
             type="number"
@@ -106,7 +111,7 @@ const SimulationControls = ({ onStart, isSimulating }) => {
         <div className="space-y-2">
           <label className="block text-sm font-medium">
             Max Bet (% of Bankroll): {settings.maxBetPercent}%
-            <Tooltip text={tooltips.maxBetPercent} />
+            <EnhancedTooltip {...tooltipContent.bankrollManagement}>ⓘ</EnhancedTooltip>
           </label>
           <input
             type="range"
@@ -122,7 +127,7 @@ const SimulationControls = ({ onStart, isSimulating }) => {
         <div className="space-y-2">
           <label className="block text-sm font-medium">
             Deck Penetration (%): {settings.penetration}%
-            <Tooltip text={tooltips.penetration} />
+            <EnhancedTooltip {...tooltipContent.penetration}>ⓘ</EnhancedTooltip>
           </label>
           <input
             type="range"

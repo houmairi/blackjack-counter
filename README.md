@@ -23,7 +23,7 @@ A sophisticated Blackjack simulation tool built with React that demonstrates the
 
 ```bash
 # Clone the repository
-git clone [your-repo-url]
+git clone https://github.com/houmairi/blackjack-counter
 
 # Install dependencies
 npm install
